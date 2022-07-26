@@ -1,17 +1,10 @@
-const ReactDOM = require("react-dom/client");
-const React = require("react");
-const Header = require("./Components/header.jsx");
-const Article = require("./Components/article.jsx");
+import ReactDOM from 'react-dom/client';
+import React from 'react';
+import Header from './Components/header.jsx';
 
-const header = "Story";
-const article = "One Eugene once spent a day on properly installing npm. The end.";
-
-ReactDOM.createRoot(
-    document.getElementById("root")
-)
-    .render(
-        <div>
-            <Header text={header}/>
-            <Article content={article}/>
-        </div>
-    );
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <div>
+        <Header />
+    </div>
+);
