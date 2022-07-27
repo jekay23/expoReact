@@ -1,12 +1,24 @@
-import ReactDOM from 'react-dom/client';
 import React from 'react';
 import Header from './Components/header.jsx';
-import Table from "./Components/table.jsx";
+import TableWrapper from "./Components/tableWrapper.jsx";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route
+} from 'react-router-dom';
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-    <div>
-        <Header />
-        <Table />
-    </div>
-);
+export default function App(props) {
+    return (
+        <Router>
+            <div className={'mmd-admin'}>
+                <Header/>
+                <Routes>
+                    <Route path="/admin/compilations" element={<TableWrapper type={'compilations'} />} />
+                    <Route path="/admin/profiles" element={<TableWrapper type={'profiles'} />} />
+                    <Route path="/admin/photos" element={<TableWrapper type={'photos'} />} />
+                    {/*<Route path="/admin" element={<Home />} />*/}
+                </Routes>
+            </div>
+        </Router>
+    );
+}
