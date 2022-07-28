@@ -1,22 +1,29 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useTable} from 'react-table';
 
 export default function Table(props) {
     const columns = props.columns;
     const data = props.data;
-    const {getTableProps, getTableBodyProps, headerGroups, rows, prepareRow} = useTable({columns, data});
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        prepareRow,
+        rows
+    } = useTable({columns, data});
     return (
         <div className="pt-5 d-flex justify-content-center">
             <table {...getTableProps()} className={'mmd-admin-table'}>
                 <thead>
-                {
-                    headerGroups.map(headerGroup => (
-                        <tr {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map(column => (
-                                <th {...column.getHeaderProps()}>
-                                    {column.render('Header')}
-                                </th>))}
-                        </tr>))}
+                {headerGroups.map(headerGroup => (
+                    <tr {...headerGroup.getHeaderGroupProps()}>
+                        {headerGroup.headers.map(column => (
+                            <th {...column.getHeaderProps()}>
+                                {column.render('Header')}
+                            </th>
+                        ))}
+                    </tr>
+                ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
                 {rows.map(row => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Table from './table.jsx';
-import getColumns from './columnTypes.jsx'
+import getColumns from './columnTitles.jsx'
 
 export default function TableWrapper(props) {
     let apiUrl;

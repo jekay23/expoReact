@@ -1,4 +1,5 @@
 import React from 'react';
+import CustomSwitch from "./customSwitch.jsx";
 
 export default function getColumns(type) {
     switch (type) {
