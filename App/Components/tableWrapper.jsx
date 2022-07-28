@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Table from './table.jsx';
 import getColumns from './columnTitles.jsx'
@@ -21,10 +21,10 @@ export default function TableWrapper(props) {
 
     let columns = getColumns(props.type);
 
-    const [loadingData, setLoadingData] = React.useState(true);
-    const [data, setData] = React.useState([]);
+    const [loadingData, setLoadingData] = useState(true);
+    const [data, setData] = useState([]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         async function getData() {
             await axios
                 .get(apiUrl)
