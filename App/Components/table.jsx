@@ -26,7 +26,7 @@ export default function Table(props) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.map(row => {
+                {rows.map((row, i) => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>
