@@ -9,9 +9,9 @@ export default function getColumns(type) {
             return React.useMemo(() => [{
                 Header: 'ID', accessor: 'compilationID', Cell: (props) => <a href={'/compilation/' + props.cell.value}>{props.cell.value}</a>
             }, {
-                Header: 'Название', accessor: 'name', Cell: (props) => <CustomInput value={props.cell.value || ''} />
+                Header: 'Название', accessor: 'name', Cell: (props) => <CustomInput value={props.cell.value || ''} compilationID={props.row.original.compilationID} adminAction={'changeName'}/>
             }, {
-                Header: 'Описание', accessor: 'description', Cell: (props) => <CustomInput value={props.cell.value || ''} />
+                Header: 'Описание', accessor: 'description', Cell: (props) => <CustomInput value={props.cell.value || ''} compilationID={props.row.original.compilationID} adminAction={'changeDesc'}/>
             }, {
                 Header: 'Дата создания', accessor: 'creationTime',
             }, {
@@ -35,7 +35,7 @@ export default function getColumns(type) {
             }, {
                 Header: 'Скрыть аватар', accessor: 'isHiddenAvatar', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} userID={props.row.original.userID} adminAction={'hideAvatar'}/>
             }, {
-                Header: 'Доступ', accessor: 'accessLevel', Cell: (props) => <CustomSelect value={parseInt(props.cell.value)}/>
+                Header: 'Доступ', accessor: 'accessLevel', Cell: (props) => <CustomSelect value={parseInt(props.cell.value)} userID={props.row.original.userID}/>
             }], []);
         case 'photos':
             return React.useMemo(() => [{

@@ -1,23 +1,27 @@
 import React, {useEffect} from 'react';
 import Select from 'react-select';
+import axios from "axios";
 
 export default function CustomSelect(props) {
-    // const [enabled, setSwitchState] = React.useState(props.value);
-
     const options = [
         {value: 1, label: 'Нет'},
         {value: 2, label: 'Редактор'},
         {value: 3, label: 'Админ'}
     ]
 
-    // const switchTrigger = () => {
-    //     console.log('AAAAAA CHANGED');
-    //     setSwitchState(!enabled);
-    // };
+    async function pingApi(apiUrl) {
+        await axios
+            .get(apiUrl)
+            .then((response) => {
+                console.log('API pinged');
+            });
+    }
 
-    // useEffect(() => {
-    //     console.log('EFFECT HOOK WORKS HOLEY SHEEEET')
-    // }, [enabled])
+    const handleChange = ({value: value, label: label}) => {
+        let apiUrl = '/api/changeUserLevel?userID=' + props.userID + '&value=' + value;
+        console.log('Go to ' + apiUrl);
+        pingApi(apiUrl);
+    }
 
-    return <Select defaultValue={options[props.value - 1]} options={options}/>;
+    return <Select defaultValue={options[props.value - 1]} onChange={handleChange} options={options}/>;
 }
