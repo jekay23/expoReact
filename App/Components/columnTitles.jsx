@@ -25,9 +25,9 @@ export default function getColumns(type) {
             return React.useMemo(() => [{
                 Header: 'ID', accessor: 'userID', Cell: (props) => <a href={'/profile/' + props.cell.value}>{props.cell.value}</a>
             }, {
-                Header: 'Email', accessor: 'email', Cell: (props) => <a href={'mailto:' + props.cell.value}>{props.cell.value}</a>
+                Header: 'Email', accessor: 'email', Cell: (props) => <div className={'text-start'}><a href={'mailto:' + props.cell.value}>{props.cell.value}</a></div>
             }, {
-                Header: 'Имя', accessor: 'name',
+                Header: 'Имя', accessor: 'name', Cell: (props) => <div className={'text-start'}>{props.cell.value}</div>
             }, {
                 Header: 'Скрыть профиль', accessor: 'isHiddenProfile', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} userID={props.row.original.userID} adminAction={'hideProfile'}/>
             }, {
@@ -41,13 +41,11 @@ export default function getColumns(type) {
             return React.useMemo(() => [{
                 Header: 'ID', accessor: 'photoID',
             }, {
-                Header: 'Имя файла', accessor: 'location', Cell: (props) => <a href={'/uploads/photos/' + props.cell.value}>{props.cell.value}</a>
+                Header: 'Имя файла', accessor: 'location', Cell: (props) => <div className={'text-start'}><a href={'/uploads/photos/' + props.cell.value}>{props.cell.value}</a></div>
             }, {
                 Header: 'Автор', accessor: 'addedBy', Cell: (props) => <a href={'/profile/' + props.cell.value}>{props.cell.value}</a>
             }, {
                 Header: 'Скрыть', accessor: 'isHiddenByEditor', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} photoID={props.row.original.photoID}/>
-            }, {
-                Header: 'Скрыто автором', accessor: 'isHiddenByUser', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} disabled={true}/>
             }], []);
         default:
             throw 'Unknown table';

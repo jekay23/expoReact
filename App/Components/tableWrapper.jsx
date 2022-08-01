@@ -24,25 +24,42 @@ export default function TableWrapper(props) {
     const [loadingData, setLoadingData] = useState(true);
     const [data, setData] = useState([]);
 
-    useEffect(() => {
-        async function getData() {
-            await axios
-                .get(apiUrl)
-                .then((response) => {
-                    console.log(response.data);
-                    setData(response.data);
-                    setLoadingData(false);
-                });
-        }
+    async function getData() {
+        await axios
+            .get(apiUrl)
+            .then((response) => {
+                console.log(response.data);
+                setData(response.data);
+                setLoadingData(false);
+            });
+    }
 
+    useEffect(() => {
         if (loadingData) {
             getData();
         }
-    }, []);
+    }, [data]);
 
+    async function pingApi(apiUrl) {
+        await axios
+            .get(apiUrl)
+            .then((response) => {
+                console.log('API pinged');
+            });
+    }
+
+    const handleClick = () => {
+        const creationApiUrl = '/api/createCompilation';
+        pingApi(creationApiUrl);
+        getData();
+    }
+
+    const button = ('compilations' === props.type) ? <button className={'mmd-button'} type={'button'} onClick={handleClick}>Добавить</button> : '';
+        
     return (
-        <div>
+        <div className={'text-center'}>
             {loadingData ? (<p>Загрузка...</p>) : (<Table columns={columns} data={data}/>)}
+            {button}
         </div>
     );
 }

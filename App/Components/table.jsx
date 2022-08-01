@@ -18,7 +18,9 @@ export default function Table(props) {
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>
+                            <th {...column.getHeaderProps([{
+                                className: column.className
+                            }])}>
                                 {column.render('Header')}
                             </th>
                         ))}
