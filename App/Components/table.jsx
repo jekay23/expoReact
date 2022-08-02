@@ -3,6 +3,9 @@ import {useTable} from 'react-table';
 
 export default function Table(props) {
     const columns = props.columns;
+    const rerender = () => {
+        props.rerender();
+    };
     const data = props.data;
     const {
         getTableProps,

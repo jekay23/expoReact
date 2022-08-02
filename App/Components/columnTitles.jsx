@@ -2,6 +2,7 @@ import React from 'react';
 import CustomSwitch from './customSwitch.jsx';
 import CustomSelect from './customSelect.jsx';
 import CustomInput from './customInput.jsx';
+import { useParams } from 'react-router-dom';
 
 export default function getColumns(type) {
     switch (type) {
@@ -15,11 +16,13 @@ export default function getColumns(type) {
             }, {
                 Header: 'Дата создания', accessor: 'creationTime',
             }, {
-                Header: 'Выставка', accessor: 'isExhibit', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} onColor={'#54B686'} compilationID={props.row.original.compilationID} adminAction={'makeExhibit'}/>
+                Header: 'Выставка', accessor: 'isExhibit', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} onColor={'#54B686'} compilationID={props.row.original.compilationID} adminAction={'makeExhibit'} rerender={() => {props.rerender()}}/>
             }, {
                 Header: 'Номер выставки', accessor: 'exhibitNumber',
             }, {
                 Header: 'Скрыть', accessor: 'isHidden', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} compilationID={props.row.original.compilationID} adminAction={'hide'}/>
+            }, {
+                Header: 'Действия', Cell: (props) => <a href={'/admin/compilation/' + props.row.original.compilationID}><button className={'mmd-button'} type={'button'} style={{paddingTop: '.5rem', paddingBottom: '.5rem', margin: '0'}}>Настроить</button></a>
             }], []);
         case 'profiles':
             return React.useMemo(() => [{
@@ -46,6 +49,14 @@ export default function getColumns(type) {
                 Header: 'Автор', accessor: 'addedBy', Cell: (props) => <a href={'/profile/' + props.cell.value}>{props.cell.value}</a>
             }, {
                 Header: 'Скрыть', accessor: 'isHiddenByEditor', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} photoID={props.row.original.photoID}/>
+            }], []);
+        case 'compilation':
+            return React.useMemo(() => [{
+                Header: 'ID', accessor: 'photoID',
+            }, {
+                Header: 'Имя файла', accessor: 'location', Cell: (props) => <div className={'text-start'}><a href={'/uploads/photos/' + props.cell.value}>{props.cell.value}</a></div>
+            }, {
+                Header: 'Скрыть из подборки', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} photoID={props.row.original.photoID} compilation={useParams()} />
             }], []);
         default:
             throw 'Unknown table';

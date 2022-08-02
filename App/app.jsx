@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Components/header.jsx';
-import TableWrapper from "./Components/tableWrapper.jsx";
+import TableWrapper from './Components/tableWrapper.jsx';
+import Home from './Components/home.jsx'
 import {
     BrowserRouter as Router,
     Routes,
@@ -16,7 +17,8 @@ export default function App(props) {
                     <Route path="/admin/compilations" element={<TableWrapper type={'compilations'} />} />
                     <Route path="/admin/profiles" element={<TableWrapper type={'profiles'} />} />
                     <Route path="/admin/photos" element={<TableWrapper type={'photos'} />} />
-                    {/*<Route path="/admin" element={<Home />} />*/}
+                    <Route path="/admin/compilation/:id" element={<TableWrapper type={'compilation'} />} />
+                    <Route path="/admin" element={<Home />} />
                 </Routes>
             </div>
         </Router>

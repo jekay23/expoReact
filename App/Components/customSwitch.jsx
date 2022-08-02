@@ -18,6 +18,9 @@ export default function CustomSwitch(props) {
 
     const switchTrigger = () => {
         setSwitchState(!enabled);
+        if ('makeExhibit' === props.adminAction) {
+            props.rerender();
+        }
     };
 
     async function pingApi(apiUrl) {
@@ -32,7 +35,9 @@ export default function CustomSwitch(props) {
         setRenderCounter(renderCounter + 1);
         if (1 <= renderCounter) {
             let apiUrl = '';
-            if ('undefined' !== typeof props.photoID) {
+            if ('undefined' !== typeof props.photoID && 'undefined' !== typeof props.compilation) {
+                apiUrl = '/api/removeCompilationItem?photoID=' + props.photoID + '&compilationID=' + props.compilation.id;
+            } else if ('undefined' !== typeof props.photoID) {
                 apiUrl = '/api/hidePhoto?photoID=' + props.photoID + '&enabled=' + enabled;
             } else if ('undefined' !== typeof props.compilationID && 'undefined' !== typeof props.adminAction) {
                 switch (props.adminAction) {
