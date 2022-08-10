@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import Select from 'react-select';
 import axios from "axios";
 
@@ -11,15 +11,11 @@ export default function CustomSelect(props) {
 
     async function pingApi(apiUrl) {
         await axios
-            .get(apiUrl)
-            .then((response) => {
-                console.log('API pinged');
-            });
+            .get(apiUrl);
     }
 
-    const handleChange = ({value: value, label: label}) => {
+    const handleChange = ({value: value}) => {
         let apiUrl = '/api/changeUserLevel?userID=' + props.userID + '&value=' + value;
-        console.log('Go to ' + apiUrl);
         pingApi(apiUrl);
     }
 

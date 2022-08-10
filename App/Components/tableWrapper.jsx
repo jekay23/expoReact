@@ -5,25 +5,15 @@ import getColumns from './columnTitles.jsx';
 import { useParams } from 'react-router-dom';
 
 export default function TableWrapper(props) {
-    let apiUrl;
-    let id;
-    switch (props.type) {
-        case 'compilations':
-            apiUrl = '/api/compilations';
-            break;
-        case 'profiles':
-            apiUrl = '/api/users';
-            break;
-        case 'photos':
-            apiUrl = '/api/photos';
-            break;
-        case 'compilation':
-            const params = useParams();
-            id = params.id;
-            apiUrl = '/api/compilation-items?compilationID=' + id;
-            break;
-        default:
-            throw 'Unknown table';
+    const apiUrls = {
+        'compilations': '/api/compilations',
+        'profiles': '/api/users',
+        'photos': '/api/photos',
+        'compilation': '/api/compilation-items?compilationID=' + useParams().id
+    }
+    const apiUrl = apiUrls[props.type];
+    if ('undefined' === typeof apiUrl) {
+        throw 'Unknown table';
     }
 
     let columns = getColumns(props.type);
@@ -36,7 +26,6 @@ export default function TableWrapper(props) {
         await axios
             .get(apiUrl)
             .then((response) => {
-                console.log(response.data);
                 setData(response.data);
                 setLoadingData(false);
             });
@@ -50,10 +39,7 @@ export default function TableWrapper(props) {
 
     async function pingApi(apiUrl) {
         await axios
-            .get(apiUrl)
-            .then((response) => {
-                console.log('API pinged');
-            });
+            .get(apiUrl);
     }
 
     const handleClick = () => {

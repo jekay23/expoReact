@@ -56,7 +56,7 @@ export default function getColumns(type) {
             }, {
                 Header: 'Имя файла', accessor: 'location', Cell: (props) => <div className={'text-start'}><a href={'/uploads/photos/' + props.cell.value}>{props.cell.value}</a></div>
             }, {
-                Header: 'Скрыть из подборки', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} photoID={props.row.original.photoID} compilation={useParams()} />
+                Header: 'Скрыть из подборки', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} photoID={props.row.original.photoID} compilationID={useParams().id} />
             }], []);
         default:
             throw 'Unknown table';

@@ -23,44 +23,33 @@ export default function CustomSwitch(props) {
         }
     };
 
+    const apiUrls = {
+        'removeCompilationItem': '/api/removeCompilationItem?photoID=' + props.photoID + '&compilationID=' + props.compilationID,
+        'hidePhoto': '/api/hidePhoto?photoID=' + props.photoID + '&enabled=' + enabled,
+        'makeExhibit': '/api/makeExhibit?compilationID=' + props.compilationID + '&enabled=' + enabled,
+        'hide': '/api/hideCompilation?compilationID=' + props.compilationID + '&enabled=' + enabled,
+        'hideProfile': '/api/hideProfile?userID=' + props.userID + '&enabled=' + enabled,
+        'hideBio': '/api/hideBio?userID=' + props.userID + '&enabled=' + enabled,
+        'hideAvatar': '/api/hideAvatar?userID=' + props.userID + '&enabled=' + enabled,
+    }
+
     async function pingApi(apiUrl) {
         await axios
-            .get(apiUrl)
-            .then((response) => {
-                console.log('API pinged');
-            });
+            .get(apiUrl);
     }
 
     useEffect(() => {
         setRenderCounter(renderCounter + 1);
         if (1 <= renderCounter) {
-            let apiUrl = '';
-            if ('undefined' !== typeof props.photoID && 'undefined' !== typeof props.compilation) {
-                apiUrl = '/api/removeCompilationItem?photoID=' + props.photoID + '&compilationID=' + props.compilation.id;
-            } else if ('undefined' !== typeof props.photoID) {
-                apiUrl = '/api/hidePhoto?photoID=' + props.photoID + '&enabled=' + enabled;
-            } else if ('undefined' !== typeof props.compilationID && 'undefined' !== typeof props.adminAction) {
-                switch (props.adminAction) {
-                    case 'makeExhibit':
-                        apiUrl = '/api/makeExhibit?compilationID=' + props.compilationID + '&enabled=' + enabled;
-                        break;
-                    case 'hide':
-                        apiUrl = '/api/hideCompilation?compilationID=' + props.compilationID + '&enabled=' + enabled;
-                        break;
+            let adminAction = props.adminAction;
+            if ('undefined' !== typeof props.photoID) {
+                if ('undefined' !== typeof props.compilation) {
+                    adminAction = 'removeCompilationItem';
+                } else {
+                    adminAction = 'hidePhoto';
                 }
-            } else if ('undefined' !== typeof props.userID && 'undefined' !== typeof props.adminAction)
-                switch (props.adminAction) {
-                    case 'hideProfile':
-                        apiUrl = '/api/hideProfile?userID=' + props.userID + '&enabled=' + enabled;
-                        break;
-                    case 'hideBio':
-                        apiUrl = '/api/hideBio?userID=' + props.userID + '&enabled=' + enabled;
-                        break;
-                    case 'hideAvatar':
-                        apiUrl = '/api/hideAvatar?userID=' + props.userID + '&enabled=' + enabled;
-                        break;
-                }
-            console.log('Go to ' + apiUrl);
+            }
+            const apiUrl = apiUrls[adminAction];
             pingApi(apiUrl);
         }
     }, [enabled])
