@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Switch from 'react-switch';
-import axios from "axios";
+import followLink from './Config/followLink.jsx';
 
 export default function CustomSwitch(props) {
     const [enabled, setSwitchState] = useState(props.value);
@@ -16,13 +16,6 @@ export default function CustomSwitch(props) {
         onColor = props.onColor;
     }
 
-    const switchTrigger = () => {
-        setSwitchState(!enabled);
-        if ('makeExhibit' === props.adminAction) {
-            props.rerender();
-        }
-    };
-
     const apiUrls = {
         'removeCompilationItem': '/api/removeCompilationItem?photoID=' + props.photoID + '&compilationID=' + props.compilationID,
         'hidePhoto': '/api/hidePhoto?photoID=' + props.photoID + '&enabled=' + enabled,
@@ -33,27 +26,30 @@ export default function CustomSwitch(props) {
         'hideAvatar': '/api/hideAvatar?userID=' + props.userID + '&enabled=' + enabled,
     }
 
-    async function pingApi(apiUrl) {
-        await axios
-            .get(apiUrl);
-    }
+    const handleChange = () => {
+        setSwitchState(!enabled);
+    };
 
     useEffect(() => {
         setRenderCounter(renderCounter + 1);
         if (1 <= renderCounter) {
             let adminAction = props.adminAction;
             if ('undefined' !== typeof props.photoID) {
-                if ('undefined' !== typeof props.compilation) {
+                if ('undefined' !== typeof props.compilationID) {
                     adminAction = 'removeCompilationItem';
                 } else {
                     adminAction = 'hidePhoto';
                 }
             }
             const apiUrl = apiUrls[adminAction];
-            pingApi(apiUrl);
+            followLink(apiUrl).then(() => {
+                if ('makeExhibit' === props.adminAction) {
+                    props.rerender();
+                }
+            });
         }
     }, [enabled])
 
-    return <Switch onChange={switchTrigger} onColor={onColor} uncheckedIcon={false} checkedIcon={false}
+    return <Switch onChange={handleChange} onColor={onColor} uncheckedIcon={false} checkedIcon={false}
                    checked={!!enabled} disabled={disabled}/>;
 }

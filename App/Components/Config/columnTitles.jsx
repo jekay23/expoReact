@@ -1,10 +1,10 @@
 import React from 'react';
-import CustomSwitch from './customSwitch.jsx';
-import CustomSelect from './customSelect.jsx';
-import CustomInput from './customInput.jsx';
+import CustomSwitch from '../customSwitch.jsx';
+import CustomSelect from '../customSelect.jsx';
+import CustomInput from '../customInput.jsx';
 import { useParams } from 'react-router-dom';
 
-export default function getColumns(type) {
+export default function getColumns(type, rerender) {
     switch (type) {
         case 'compilations':
             return React.useMemo(() => [{
@@ -16,7 +16,7 @@ export default function getColumns(type) {
             }, {
                 Header: 'Дата создания', accessor: 'creationTime',
             }, {
-                Header: 'Выставка', accessor: 'isExhibit', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} onColor={'#54B686'} compilationID={props.row.original.compilationID} adminAction={'makeExhibit'} rerender={() => {props.rerender()}}/>
+                Header: 'Выставка', accessor: 'isExhibit', Cell: (props) => <CustomSwitch value={!!parseInt(props.cell.value)} onColor={'#54B686'} compilationID={props.row.original.compilationID} adminAction={'makeExhibit'} rerender={() => {rerender()}}/>
             }, {
                 Header: 'Номер выставки', accessor: 'exhibitNumber',
             }, {

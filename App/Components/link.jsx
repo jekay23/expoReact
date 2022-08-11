@@ -6,6 +6,10 @@ export default function Link(props) {
         switch (props.style) {
             case 'strong':
                 name = <strong>{name}</strong>;
+                break;
+            case 'button':
+                name = <button className={'mmd-button'} type={'button'}>{name}</button>;
+                break;
         }
     }
     return (

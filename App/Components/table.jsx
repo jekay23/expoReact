@@ -1,11 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {useTable} from 'react-table';
 
 export default function Table(props) {
     const columns = props.columns;
-    const rerender = () => {
-        props.rerender();
-    };
     const data = props.data;
     const {
         getTableProps,
@@ -31,7 +28,7 @@ export default function Table(props) {
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
+                {rows.map((row) => {
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()}>

@@ -1,5 +1,6 @@
 import React from 'react';
 import HeaderLink from './headerLink.jsx';
+import Link from './link.jsx';
 
 export default function Header(props) {
     return (
@@ -12,9 +13,8 @@ export default function Header(props) {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <a className="navbar-brand px-lg-5" href="/admin">
-                            <strong>Администрирование</strong>
-                        </a>
+                        <Link extraClass={"navbar-brand px-lg-5"} href={"/admin"} name={"Администрирование"}
+                              style={"strong"}/>
                         <ul className="navbar-nav">
                             <HeaderLink name={"Подборки"} href={"/admin/compilations"} class={"active"}/>
                             <HeaderLink name={"Профили"} href={"/admin/profiles"}/>

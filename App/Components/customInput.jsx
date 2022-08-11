@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import TextAreaAutosize from 'react-textarea-autosize';
-import axios from "axios";
+import followLink from './Config/followLink.jsx';
 
 export default function CustomInput(props) {
     const [currentValue, setCurrentValue] = useState(props.value);
@@ -20,15 +20,12 @@ export default function CustomInput(props) {
                 apiUrl = '/api/changeDesc?compilationID=' + props.compilationID + '&value=' + value;
                 break;
         }
-        await axios
-            .get(apiUrl);
+        await followLink(apiUrl);
     }
 
     const handleBlur = () => {
         if (currentValue !== lastSentValue) {
-            sendToServer(currentValue);
-            setLastSentValue(currentValue);
-        } else {
+            sendToServer(currentValue).then(() => {setLastSentValue(currentValue);});
         }
     }
 
