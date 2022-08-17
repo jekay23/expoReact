@@ -1,8 +1,8 @@
 import React from 'react';
-import HeaderLink from './headerLink.jsx';
-import Link from './link.jsx';
+import HeaderLink from './headerLink';
+import Link from './link';
 
-export default function Header(props) {
+export default function Header() {
     return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-primary mmd-navbar" role="navigation">
@@ -16,7 +16,7 @@ export default function Header(props) {
                         <Link extraClass={"navbar-brand px-lg-5"} href={"/admin"} name={"Администрирование"}
                               style={"strong"}/>
                         <ul className="navbar-nav">
-                            <HeaderLink name={"Подборки"} href={"/admin/compilations"} class={"active"}/>
+                            <HeaderLink name={"Подборки"} href={"/admin/compilations"}/>
                             <HeaderLink name={"Профили"} href={"/admin/profiles"}/>
                             <HeaderLink name={"Фото"} href={"/admin/photos"} extraPadding={"pe-5"}/>
                             <HeaderLink name={"Вернуться на основной сайт"} href={"/"} style={"strong"}/>

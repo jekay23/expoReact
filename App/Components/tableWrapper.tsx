@@ -1,19 +1,21 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import followLink from './Config/followLink.jsx';
-import Table from './table.jsx';
-import getColumns from './Config/columnTitles.jsx';
+import followLink from './Config/followLink';
+import Table from './table';
+import getColumns from './Config/columnTitles';
 import {useParams} from 'react-router-dom';
+import {stringKeyArray} from './Config/types';
 
-export default function TableWrapper(props) {
+
+export default function TableWrapper(props: {type: string}) {
     const compilationID = useParams().id;
-    const apiUrls = {
+    const apiUrls: stringKeyArray = {
         'compilations': '/api/compilations',
         'profiles': '/api/users',
         'photos': '/api/photos',
         'compilation': '/api/compilation-items?compilationID=' + compilationID
     }
-    const apiUrl = apiUrls[props.type];
+    const apiUrl: string = apiUrls[props.type];
     if ('undefined' === typeof apiUrl) {
         throw 'Unknown table';
     }
@@ -44,17 +46,17 @@ export default function TableWrapper(props) {
         followLink(creationApiUrl).then(() => {getData();});
     }
 
-    const handleChange = (event) => {
-        setPhotoID(event.target.value);
+    const handleChange = (event: React.SyntheticEvent) => {
+        setPhotoID((event.target as HTMLInputElement).value);
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.SyntheticEvent) => {
         const creationApiUrl = '/api/addCompilationItem?compilationID=' + compilationID + '&photoID=' + photoID;
         followLink(creationApiUrl).then(() => {getData();});
         event.preventDefault();
     }
 
-    let button = '';
+    let button = <></>;
     if ('compilations' === props.type) {
         button = <button className={'mmd-button'} type={'button'} onClick={handleClick}>Добавить</button>
     } else if ('compilation' === props.type) {

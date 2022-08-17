@@ -1,7 +1,11 @@
 import React from 'react';
-import Link from './link.jsx';
+import Link, {LinkProps} from './link';
 
-export default function HeaderLink(props) {
+interface HeaderLinkProps extends LinkProps {
+    extraPadding?: string
+}
+
+export default function HeaderLink(props: HeaderLinkProps) {
     return (
         <li className={"nav-item px-xl-5 " + (props.extraPadding || "")}>
             <Link extraClass={"nav-link " + (props.extraClass || "")} href={props.href}

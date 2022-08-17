@@ -1,16 +1,22 @@
 import React, {useState} from 'react';
 import TextAreaAutosize from 'react-textarea-autosize';
-import followLink from './Config/followLink.jsx';
+import followLink from './Config/followLink';
 
-export default function CustomInput(props) {
+interface CustomInputProps {
+    value: string,
+    adminAction: string,
+    compilationID: string
+}
+
+export default function CustomInput(props: CustomInputProps) {
     const [currentValue, setCurrentValue] = useState(props.value);
     const [lastSentValue, setLastSentValue] = useState(props.value);
 
-    const handleChange = (event) => {
-        setCurrentValue(event.target.value);
+    const handleChange = (event: React.SyntheticEvent) => {
+        setCurrentValue((event.target as HTMLInputElement).value);
     }
 
-    async function sendToServer(value) {
+    async function sendToServer(value: string) {
         let apiUrl = '';
         switch (props.adminAction) {
             case 'changeName':

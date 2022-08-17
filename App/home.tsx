@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from './Components/link.jsx';
+import Link from './Components/link';
 
-export default function Home(props) {
+export default function Home() {
     return (
         <div className={'d-flex justify-content-evenly mt-5'}>
             <Link href={'/admin/compilations'} name={'Подборки'} style={'button'} />
