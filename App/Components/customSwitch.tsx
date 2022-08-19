@@ -11,15 +11,15 @@ interface CustomSwitchProps {
     compilationID?: string;
     userID?: string;
     adminAction?: string;
-    rerender?(): void
+    rerenderCallback?(): void
 }
 
 export default function CustomSwitch(props: CustomSwitchProps) {
-    const [enabled, setSwitchState] = useState(props.value as boolean);
+    const [enabled, setSwitchState] = useState(props.value);
     const [renderCounter, setRenderCounter] = useState(0);
 
     let disabled = false;
-    if ('undefined' !== typeof props.disabled && props.disabled) {
+    if (('undefined' !== typeof props.disabled) && props.disabled) {
         disabled = true;
     }
 
@@ -56,7 +56,7 @@ export default function CustomSwitch(props: CustomSwitchProps) {
             const apiUrl: string = apiUrls[adminAction];
             followLink(apiUrl).then(() => {
                 if ('makeExhibit' === props.adminAction) {
-                    props.rerender();
+                    props.rerenderCallback();
                 }
             });
         }

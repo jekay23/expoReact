@@ -1,8 +1,15 @@
 import React from 'react';
-import HeaderLink from './headerLink';
+import HeaderLink, {HeaderLinkProps} from './headerLink';
 import Link from './link';
 
 export default function Header() {
+    const headerLinks: HeaderLinkProps[] = [
+        {name: 'Подборки', href: '/admin/compilations'},
+        {name: 'Профили', href: '/admin/profiles'},
+        {name: 'Фото', href: '/admin/photos', extraPadding: 'pe-5'},
+        {name: 'Вернуться на основной сайт', href: '/', style: 'strong'}
+    ];
+
     return (
         <header>
             <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-primary mmd-navbar" role="navigation">
@@ -16,10 +23,10 @@ export default function Header() {
                         <Link extraClass={"navbar-brand px-lg-5"} href={"/admin"} name={"Администрирование"}
                               style={"strong"}/>
                         <ul className="navbar-nav">
-                            <HeaderLink name={"Подборки"} href={"/admin/compilations"}/>
-                            <HeaderLink name={"Профили"} href={"/admin/profiles"}/>
-                            <HeaderLink name={"Фото"} href={"/admin/photos"} extraPadding={"pe-5"}/>
-                            <HeaderLink name={"Вернуться на основной сайт"} href={"/"} style={"strong"}/>
+                            {headerLinks.map((headerLink, key) => (
+                                <HeaderLink name={headerLink.name} href={headerLink.href}
+                                            extraPadding={headerLink.extraPadding} style={headerLink.style} key={key} />
+                            ))}
                         </ul>
                     </div>
                 </div>

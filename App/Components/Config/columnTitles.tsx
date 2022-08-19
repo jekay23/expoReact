@@ -11,7 +11,7 @@ interface CustomRow {
     photoID?: string
 }
 
-export default function getColumns(type: string, rerender: () => void) {
+export default function getColumns(type: string, rerenderCallback: () => void) {
     switch (type) {
         case 'compilations':
             return React.useMemo(() => [{
@@ -37,8 +37,8 @@ export default function getColumns(type: string, rerender: () => void) {
                 accessor: 'isExhibit',
                 Cell: (props: CellProps<CustomRow, string>) => <CustomSwitch value={!!parseInt(props.cell.value)} onColor={'#54B686'}
                                                compilationID={props.row.original.compilationID}
-                                               adminAction={'makeExhibit'} rerender={() => {
-                    rerender()
+                                               adminAction={'makeExhibit'} rerenderCallback={() => {
+                    rerenderCallback()
                 }}/>
             }, {
                 Header: 'Номер выставки', accessor: 'exhibitNumber',

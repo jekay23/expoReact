@@ -1,7 +1,7 @@
 import React from 'react';
 import Link, {LinkProps} from './link';
 
-interface HeaderLinkProps extends LinkProps {
+export interface HeaderLinkProps extends LinkProps {
     extraPadding?: string
 }
 
