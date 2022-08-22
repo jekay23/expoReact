@@ -4,10 +4,10 @@ import Link from './link';
 
 export default function Header() {
     const headerLinks: HeaderLinkProps[] = [
-        {name: 'Подборки', href: '/admin/compilations'},
-        {name: 'Профили', href: '/admin/profiles'},
-        {name: 'Фото', href: '/admin/photos', extraPadding: 'pe-5'},
-        {name: 'Вернуться на основной сайт', href: '/', style: 'strong'}
+        {name: 'Подборки', href: '/admin/compilations', codename: 'compilations'},
+        {name: 'Профили', href: '/admin/profiles', codename: 'profiles'},
+        {name: 'Фото', href: '/admin/photos', codename: 'photos', extraPadding: 'pe-5'},
+        {name: 'Вернуться на основной сайт', href: '/', codename: 'goBack', style: 'strong'}
     ];
 
     return (
@@ -24,7 +24,7 @@ export default function Header() {
                               style={"strong"}/>
                         <ul className="navbar-nav">
                             {headerLinks.map((headerLink, key) => (
-                                <HeaderLink name={headerLink.name} href={headerLink.href}
+                                <HeaderLink name={headerLink.name} href={headerLink.href} codename={headerLink.codename}
                                             extraPadding={headerLink.extraPadding} style={headerLink.style} key={key} />
                             ))}
                         </ul>

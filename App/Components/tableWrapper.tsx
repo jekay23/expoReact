@@ -5,9 +5,27 @@ import Table from './table';
 import getColumns from './Config/columnTitles';
 import {useParams} from 'react-router-dom';
 import {stringKeyArray} from './Config/types';
+import {changeNavbarLink, NavbarLinks} from '../Redux/currentNavbarLink';
+import {useAppDispatch, useAppSelector} from '../Redux/hooks';
 
+type Type = 'compilations' | 'profiles' | 'photos' | 'compilation';
 
-export default function TableWrapper(props: {type: string}) {
+type Types = {
+    [key in Type]: NavbarLinks;
+}
+
+export default function TableWrapper(props: {type: Type}) {
+    const navbarLinks: Types = {
+        'compilations': 'compilations',
+        'profiles': 'profiles',
+        'photos': 'photos',
+        'compilation': 'compilations'
+    }
+
+    const currentNavbarLink = useAppSelector(state => state.currentNavbarLink);
+    const dispatch = useAppDispatch();
+    dispatch(changeNavbarLink(navbarLinks[props.type]));
+
     const compilationID = useParams().id;
     const apiUrls: stringKeyArray = {
         'compilations': '/api/compilations',
