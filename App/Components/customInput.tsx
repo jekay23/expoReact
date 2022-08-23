@@ -3,9 +3,9 @@ import TextAreaAutosize from 'react-textarea-autosize';
 import followLink from './Config/followLink';
 
 interface CustomInputProps {
-    value: string,
-    adminAction: string,
-    compilationID: string
+    value: string;
+    adminAction: string;
+    compilationID: string;
 }
 
 export default function CustomInput(props: CustomInputProps) {

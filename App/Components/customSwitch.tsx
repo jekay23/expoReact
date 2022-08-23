@@ -11,7 +11,7 @@ interface CustomSwitchProps {
     compilationID?: string;
     userID?: string;
     adminAction?: string;
-    rerenderCallback?(): void
+    rerenderCallback?(): void;
 }
 
 export default function CustomSwitch(props: CustomSwitchProps) {

@@ -1,3 +1,3 @@
 export interface stringKeyArray {
-    [key: string]: string
+    [key: string]: string;
 }

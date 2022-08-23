@@ -4,7 +4,7 @@ import followLink from './Config/followLink';
 
 interface CustomSelectProps {
     value: number;
-    userID: string
+    userID: string;
 }
 
 interface AdminLevel {

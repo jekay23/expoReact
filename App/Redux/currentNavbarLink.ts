@@ -3,7 +3,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 export type NavbarLinks = 'home' | 'compilations' | 'profiles' | 'photos' | 'goBack';
 
 interface NavbarState {
-    link: NavbarLinks
+    link: NavbarLinks;
 }
 
 const initialState: NavbarState = {

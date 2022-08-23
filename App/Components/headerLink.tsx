@@ -4,8 +4,8 @@ import {useAppSelector} from '../Redux/hooks';
 import {NavbarLinks} from '../Redux/currentNavbarLink';
 
 export interface HeaderLinkProps extends LinkProps {
-    extraPadding?: string,
-    codename?: NavbarLinks
+    extraPadding?: string;
+    codename?: NavbarLinks;
 }
 
 type HeaderLinkExtraClass = 'active' | '';

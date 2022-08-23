@@ -4,7 +4,7 @@ import {Column} from 'react-table';
 
 interface TableProps {
     columns: Column[];
-    data: any
+    data: any;
 }
 
 export default function Table(props: TableProps) {

@@ -1,10 +1,10 @@
 import React from 'react';
 
 export interface LinkProps {
-    href: string,
-    name: string,
-    extraClass?: string,
-    style?: string
+    href: string;
+    name: string;
+    extraClass?: string;
+    style?: string;
 }
 
 export default function Link(props: LinkProps) {
