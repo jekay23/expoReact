@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTable} from 'react-table';
+import {useGlobalFilter, useTable} from 'react-table';
 import {Column} from 'react-table';
 
 interface TableProps {
@@ -15,10 +15,22 @@ export default function Table(props: TableProps) {
         getTableBodyProps,
         headerGroups,
         prepareRow,
-        rows
-    } = useTable({columns, data});
+        rows,
+        setGlobalFilter,
+        state
+    } = useTable({columns, data}, useGlobalFilter);
     return (
-        <div className="pt-5 d-flex justify-content-center">
+        <div className="pt-5 d-flex justify-content-center flex-column">
+            <div className="pt-3">
+                <label className="mmd-input-wrap mmd-admin-input-wrap">
+                    Глобальный фильтр
+                    <input
+                        type="text"
+                        value={state.globalFilter || ""}
+                        onChange={e => setGlobalFilter(e.target.value)}
+                    />
+                </label>
+            </div>
             <table {...getTableProps()} className={'mmd-admin-table'}>
                 <thead>
                 {headerGroups.map(headerGroup => (
