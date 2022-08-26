@@ -6,7 +6,8 @@ import getColumns from './Config/columnTitles';
 import {useParams} from 'react-router-dom';
 import {stringKeyArray} from './Config/types';
 import {changeNavbarLink, NavbarLinks} from '../Redux/currentNavbarLink';
-import {useAppDispatch, useAppSelector} from '../Redux/hooks';
+import {useAppDispatch} from '../Redux/hooks';
+import setPageTitle from "./Config/pageTitle";
 
 type Type = 'compilations' | 'profiles' | 'photos' | 'compilation';
 
@@ -22,7 +23,8 @@ export default function TableWrapper(props: {type: Type}) {
         'compilation': 'compilations'
     }
 
-    const currentNavbarLink = useAppSelector(state => state.currentNavbarLink);
+    setPageTitle(props.type);
+
     const dispatch = useAppDispatch();
     dispatch(changeNavbarLink(navbarLinks[props.type]));
 
